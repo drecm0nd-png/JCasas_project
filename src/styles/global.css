@@ -1,0 +1,118 @@
+@import "./variables.css";
+
+/* Base uniforme y sencilla para todas las páginas */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  min-width: 320px;
+  background: var(--color-fondo);
+  color: var(--color-texto);
+  font-family: var(--fuente-principal);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+  margin: 0;
+  background: var(--color-fondo);
+  font-size: var(--tamano-descripcion);
+  font-weight: var(--peso-descripcion);
+  line-height: var(--interlineado);
+}
+
+#root {
+  min-height: 100vh;
+}
+
+/* Centra el contenido y limita su ancho en pantallas grandes */
+.contenedor {
+  width: min(100% - 2rem, var(--ancho-contenido));
+  margin-inline: auto;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin-block: 0 1rem;
+}
+
+h1 {
+  font-size: var(--tamano-titulo);
+  font-weight: var(--peso-titulo);
+  line-height: 1.15;
+}
+
+h2,
+h3 {
+  font-size: var(--tamano-subtitulo);
+  font-weight: var(--peso-subtitulo);
+  line-height: 1.25;
+}
+
+p {
+  color: var(--color-texto-secundario);
+}
+
+button {
+  border: 0;
+  border-radius: var(--radio-borde);
+  background: var(--color-boton);
+  color: var(--color-fondo);
+  font: inherit;
+  font-weight: 600;
+  transition: background-color 160ms ease;
+}
+
+button:hover:not(:disabled) {
+  background: var(--color-boton-hover);
+}
+
+button:focus-visible {
+  outline: 2px solid var(--color-acento);
+  outline-offset: 3px;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Ajustes para móviles: más espacio útil y una jerarquía tipográfica compacta */
+@media (max-width: 600px) {
+  :root {
+    --tamano-titulo: clamp(1.75rem, 1.4rem + 2vw, 2.25rem);
+    --tamano-subtitulo: clamp(1.25rem, 1.1rem + 1vw, 1.5rem);
+  }
+
+  .contenedor {
+    width: min(100% - 1.5rem, var(--ancho-contenido));
+  }
+
+  body {
+    overflow-wrap: break-word;
+  }
+
+  /* Facilita pulsar los botones en pantallas táctiles */
+  button {
+    min-height: 2.75rem;
+    padding-inline: 1rem;
+  }
+}

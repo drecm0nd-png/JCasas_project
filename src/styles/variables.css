@@ -1,0 +1,29 @@
+/* Colores de la identidad visual del restaurante */
+:root {
+  --color-fondo: #ffffff;
+  --color-superficie: #fcede3;
+  --color-acento-suave: #c9a38d;
+  --color-acento: #96674b;
+  --color-boton: #63381e;
+  --color-boton-hover: #331605;
+  --color-texto: #331605;
+  --color-texto-secundario: #63381e;
+  --color-borde: #c9a38d;
+
+  /* Tipografía adaptable: títulos más grandes y destacados que el texto */
+  --fuente-principal: system-ui, -apple-system, "Segoe UI", sans-serif;
+  --tamano-titulo: clamp(2rem, 1.5rem + 2vw, 3rem);
+  --tamano-subtitulo: clamp(1.5rem, 1.25rem + 1vw, 2rem);
+  --tamano-descripcion: 1rem;
+  --tamano-texto-pequeno: 0.875rem;
+  --peso-titulo: 700;
+  --peso-subtitulo: 600;
+  --peso-descripcion: 400;
+  --interlineado: 1.6;
+
+  /* Medidas comunes para mantener una composición ordenada */
+  --ancho-contenido: 72rem;
+  --espacio: 1rem;
+  --radio-borde: 0.375rem;
+  --sombra-suave: 0 2px 8px rgb(51 22 5 / 10%);
+}
