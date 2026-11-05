@@ -1,0 +1,125 @@
+@import "../../styles/variables.css";
+
+.pie-pagina {
+  width: 100%;
+  padding: calc(var(--espacio) * 1.5)
+    max(
+      var(--espacio),
+      calc((100% - var(--ancho-contenido)) / 2 + var(--espacio))
+    )
+    calc(var(--espacio) / 2);
+  background: var(--color-superficie);
+  color: var(--color-texto);
+}
+
+.pie-pagina__contenido {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: calc(var(--espacio) * 2);
+  width: min(100%, var(--ancho-contenido));
+  margin-inline: auto;
+}
+
+.pie-pagina__seccion {
+  min-width: 0;
+}
+
+.pie-pagina__titulo {
+  margin: 0 0 calc(var(--espacio) / 4);
+  color: var(--color-texto);
+  font-size: var(--tamano-texto-pequeno);
+  font-weight: var(--peso-titulo);
+  line-height: 1.4;
+}
+
+.pie-pagina__texto,
+.pie-pagina__datos {
+  margin: 0;
+  color: var(--color-texto-secundario);
+  font-size: var(--tamano-texto-pequeno);
+  font-style: normal;
+  line-height: 1.4;
+}
+
+.pie-pagina__texto {
+  max-width: 34ch;
+}
+
+.pie-pagina__datos {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 0.3em;
+}
+
+.pie-pagina__datos a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.pie-pagina__datos a:hover {
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+.pie-pagina__datos span:last-of-type {
+  flex-basis: 100%;
+}
+
+.pie-pagina__redes {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--espacio) / 2);
+  margin-top: calc(var(--espacio) / 2);
+}
+
+.pie-pagina__redes a {
+  display: inline-flex;
+  width: 1.5rem;
+  height: 1.5rem;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-texto);
+}
+
+.pie-pagina__redes a:focus-visible,
+.pie-pagina__datos a:focus-visible {
+  outline: 2px solid var(--color-acento);
+  outline-offset: 3px;
+}
+
+.pie-pagina__redes svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  fill: currentColor;
+}
+
+.pie-pagina__credito {
+  margin: calc(var(--espacio) * 1.5) 0 0;
+  color: var(--color-texto-secundario);
+  font-size: 0.75rem;
+  line-height: 1.4;
+  text-align: center;
+}
+
+.pie-pagina__credito span {
+  color: var(--color-texto);
+  font-weight: var(--peso-titulo);
+}
+
+@media (max-width: 40rem) {
+  .pie-pagina {
+    padding: var(--espacio)
+      max(0.75rem, calc((100% - var(--ancho-contenido)) / 2 + 0.75rem))
+      calc(var(--espacio) / 2);
+  }
+
+  .pie-pagina__contenido {
+    grid-template-columns: 1fr;
+    gap: var(--espacio);
+  }
+
+  .pie-pagina__credito {
+    margin-top: var(--espacio);
+  }
+}
