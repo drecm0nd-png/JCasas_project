@@ -1,0 +1,191 @@
+@import "../../styles/variables.css";
+
+.encabezado {
+  width: 100%;
+  background: var(--color-boton);
+  color: var(--color-fondo);
+}
+
+.encabezado__barra {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--espacio);
+  width: min(100%, var(--ancho-contenido));
+  min-height: calc(var(--espacio) * 4);
+  margin-inline: auto;
+  padding: var(--espacio);
+}
+
+.encabezado__marca {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--espacio);
+  color: var(--color-fondo);
+  text-decoration: none;
+}
+
+.encabezado__logo {
+  display: block;
+  width: calc(var(--espacio) * 3);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  object-fit: contain;
+}
+
+.encabezado__nombre {
+  font-family: var(--fuente-principal);
+  font-size: var(--tamano-subtitulo);
+  font-weight: var(--peso-titulo);
+  line-height: var(--interlineado);
+}
+
+.encabezado__navegacion {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  gap: var(--espacio);
+}
+
+.encabezado__navegacion a {
+  padding-block: calc(var(--espacio) / 2);
+  color: var(--color-fondo);
+  font-size: var(--tamano-texto-pequeno);
+  font-weight: var(--peso-subtitulo);
+  text-decoration: none;
+}
+
+.encabezado__navegacion a:hover {
+  color: var(--color-superficie);
+}
+
+.encabezado__navegacion .encabezado__enlace--activo {
+  color: var(--color-superficie);
+  text-decoration: underline;
+  text-underline-offset: calc(var(--espacio) / 4);
+}
+
+.encabezado__navegacion .encabezado__registro--activo {
+  background: var(--color-boton-hover);
+  outline: calc(var(--radio-borde) / 4) solid var(--color-superficie);
+  outline-offset: calc(var(--radio-borde) / 4);
+}
+
+.encabezado__marca:focus-visible,
+.encabezado__navegacion a:focus-visible,
+.encabezado__migas a:focus-visible,
+.encabezado__alternador:focus-visible {
+  outline: calc(var(--radio-borde) / 2) solid var(--color-superficie);
+  outline-offset: 3px;
+}
+
+.encabezado__alternador {
+  box-sizing: border-box;
+  display: none;
+  flex: 0 0 auto;
+  position: relative;
+  width: calc(var(--espacio) * 3);
+  height: calc(var(--espacio) * 3);
+  padding: calc(var(--espacio) / 2);
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.encabezado__alternador span {
+  display: block;
+  position: absolute;
+  left: 25%;
+  width: calc(var(--espacio) * 1.5);
+  height: calc(var(--radio-borde) / 2);
+  margin: 0;
+  border-radius: var(--radio-borde);
+  background: var(--color-fondo);
+  transform: translateY(-50%);
+  transition: top 160ms ease, transform 160ms ease, opacity 160ms ease;
+}
+
+.encabezado__alternador span:first-child {
+  top: 35%;
+}
+
+.encabezado__alternador span:nth-child(2) {
+  top: 50%;
+}
+
+.encabezado__alternador span:last-child {
+  top: 65%;
+}
+
+.encabezado__alternador--abierto span:first-child {
+  top: 50%;
+  transform: translateY(-50%) rotate(45deg);
+}
+
+.encabezado__alternador--abierto span:nth-child(2) {
+  opacity: 0;
+  transform: scaleX(0);
+}
+
+.encabezado__alternador--abierto span:last-child {
+  top: 50%;
+  transform: translateY(-50%) rotate(-45deg);
+}
+
+.encabezado__migas {
+  width: min(100%, var(--ancho-contenido));
+  margin-inline: auto;
+  padding: 0 var(--espacio) var(--espacio);
+}
+
+.encabezado__migas a {
+  color: var(--color-superficie);
+  font-size: var(--tamano-texto-pequeno);
+  text-decoration: none;
+}
+
+@media (max-width: 48rem) {
+  .encabezado__barra {
+    flex-wrap: wrap;
+  }
+
+  .encabezado__alternador {
+    display: block;
+  }
+
+  .encabezado__navegacion {
+    display: none;
+    flex-basis: 100%;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    padding-block-start: var(--espacio);
+    border-top: calc(var(--radio-borde) / 4) solid var(--color-acento);
+  }
+
+  .encabezado__navegacion--abierta {
+    display: flex;
+  }
+
+  .encabezado__navegacion a {
+    padding: calc(var(--espacio) / 2) 0;
+  }
+}
+
+@media (max-width: 30rem) {
+  .encabezado__barra,
+  .encabezado__migas {
+    padding-inline: calc(var(--espacio) / 2);
+  }
+
+  .encabezado__nombre {
+    font-size: var(--tamano-descripcion);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .encabezado__alternador span {
+    transition: none;
+  }
+}
