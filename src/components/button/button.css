@@ -1,11 +1,20 @@
+@import "../../styles/variables.css";
+
 /* Estilos del boton () */
 
 .button {
   padding: 0.5rem 1rem;
-  border: none;
-  border-radius: 4px;
+  border: 0;
+  border-radius: var(--radio-borde);
+  background-color: var(--color-boton);
+  color: var(--color-fondo);
+  font: inherit;
   cursor: pointer;
-  transition: transform 120ms ease;
+  transition: transform 120ms ease, background-color 160ms ease;
+}
+
+.button:hover:not(:disabled) {
+  background-color: var(--color-boton-hover);
 }
 
 /* Efecto al cliquear el boton */
@@ -15,7 +24,7 @@
 }
 
 .button:focus-visible {
-  outline: 2px solid currentColor;
+  outline: 2px solid var(--color-acento);
   outline-offset: 3px;
 }
 
