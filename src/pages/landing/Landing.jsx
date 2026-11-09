@@ -107,12 +107,13 @@ function Landing() {
         "#cobertura .lp-seccion__cabecera, #cobertura .lp-info, #cobertura .lp-mapa",
     );
     elementos.forEach((elemento) => elemento.classList.add("lp-revelar"));
+
+    // Reproduce el fade-in al bajar y al volver a subir: visible dentro del
+    // viewport y sin la clase al salir, para que la siguiente entrada anime de nuevo.
     const observador = new IntersectionObserver(
       (entradas) => {
         entradas.forEach((entrada) => {
-          if (!entrada.isIntersecting) return;
-          entrada.target.classList.add("es-visible");
-          observador.unobserve(entrada.target);
+          entrada.target.classList.toggle("es-visible", entrada.isIntersecting);
         });
       },
       { rootMargin: "0px 0px -8% 0px", threshold: 0.1 },
