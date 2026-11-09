@@ -1,9 +1,16 @@
 @import "../../styles/variables.css";
 
 .encabezado {
+  position: sticky;
+  top: 0;
+  z-index: 50;
   width: 100%;
   background: var(--color-boton);
+  background: color-mix(in srgb, var(--color-boton) 86%, transparent);
   color: var(--color-fondo);
+  border-bottom: 1px solid color-mix(in srgb, var(--color-superficie) 24%, transparent);
+  -webkit-backdrop-filter: blur(12px) saturate(1.2);
+  backdrop-filter: blur(12px) saturate(1.2);
 }
 
 .encabezado__barra {
@@ -49,6 +56,7 @@
 }
 
 .encabezado__navegacion a {
+  position: relative;
   padding-block: calc(var(--espacio) / 2);
   color: var(--color-fondo);
   font-size: var(--tamano-texto-pequeno);
@@ -60,10 +68,25 @@
   color: var(--color-superficie);
 }
 
+.encabezado__navegacion a::after {
+  position: absolute;
+  right: calc(var(--espacio) / 2);
+  bottom: 0.15rem;
+  left: calc(var(--espacio) / 2);
+  height: 2px;
+  background: var(--color-superficie);
+  content: "";
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 180ms linear;
+}
+
 .encabezado__navegacion .encabezado__enlace--activo {
   color: var(--color-superficie);
-  text-decoration: underline;
-  text-underline-offset: calc(var(--espacio) / 4);
+}
+
+.encabezado__navegacion .encabezado__enlace--activo::after {
+  transform: scaleX(1);
 }
 
 .encabezado__navegacion .encabezado__registro--activo {
@@ -74,7 +97,6 @@
 
 .encabezado__marca:focus-visible,
 .encabezado__navegacion a:focus-visible,
-.encabezado__migas a:focus-visible,
 .encabezado__alternador:focus-visible {
   outline: calc(var(--radio-borde) / 2) solid var(--color-superficie);
   outline-offset: 3px;
@@ -103,7 +125,10 @@
   border-radius: var(--radio-borde);
   background: var(--color-fondo);
   transform: translateY(-50%);
-  transition: top 160ms ease, transform 160ms ease, opacity 160ms ease;
+  transition:
+    top 160ms ease,
+    transform 160ms ease,
+    opacity 160ms ease;
 }
 
 .encabezado__alternador span:first-child {
@@ -131,18 +156,6 @@
 .encabezado__alternador--abierto span:last-child {
   top: 50%;
   transform: translateY(-50%) rotate(-45deg);
-}
-
-.encabezado__migas {
-  width: min(100%, var(--ancho-contenido));
-  margin-inline: auto;
-  padding: 0 var(--espacio) var(--espacio);
-}
-
-.encabezado__migas a {
-  color: var(--color-superficie);
-  font-size: var(--tamano-texto-pequeno);
-  text-decoration: none;
 }
 
 @media (max-width: 48rem) {
@@ -174,8 +187,7 @@
 }
 
 @media (max-width: 30rem) {
-  .encabezado__barra,
-  .encabezado__migas {
+  .encabezado__barra {
     padding-inline: calc(var(--espacio) / 2);
   }
 
@@ -185,7 +197,8 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .encabezado__alternador span {
+  .encabezado__alternador span,
+  .encabezado__navegacion a::after {
     transition: none;
   }
 }

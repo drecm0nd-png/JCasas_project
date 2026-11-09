@@ -3,7 +3,7 @@ import "./footer.css";
 
 function Footer() {
   return (
-    <footer className="pie-pagina" id="contacto">
+    <footer className="pie-pagina">
       <div className="pie-pagina__contenido">
         <section className="pie-pagina__seccion" aria-labelledby="pie-nosotros">
           <h2 className="pie-pagina__titulo" id="pie-nosotros">
