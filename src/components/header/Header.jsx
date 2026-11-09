@@ -1,26 +1,66 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import logo from "../../assets/img/logo.png";
 import Boton from "../button/Button";
+import { scrollToSection } from "../../utils/scrollToSection";
 import "./header.css";
 
 const links = [
-  { label: "Inicio", href: "#inicio" },
+  { label: "Inicio", href: "#lp-portada" },
   { label: "Nosotros", href: "#nosotros" },
   { label: "Menú", href: "#menu" },
-  { label: "Contacto", href: "#contacto" },
+  { label: "Horarios y ubicación", href: "#cobertura" },
+  { label: "Preguntas y contacto", href: "#preguntas-contacto" },
   { label: "Registrarse", href: "#registrarse" },
 ];
 
 function Header() {
   const [menuAbierto, setMenuAbierto] = useState(false);
-  const [opcionActiva, setOpcionActiva] = useState(() => {
+  const [seccionActiva, setSeccionActiva] = useState(() => {
     const opcion = links.find(({ href }) => href === window.location.hash);
     return opcion?.label ?? "Inicio";
   });
 
+  useEffect(() => {
+    const actualizarSeccion = () => {
+      const alturaEncabezado =
+        document.querySelector(".encabezado")?.getBoundingClientRect().height ??
+        0;
+      const secciones = links
+        .filter(({ label }) => label !== "Registrarse")
+        .map((enlace) => ({
+          ...enlace,
+          elemento: document.getElementById(enlace.href.slice(1)),
+        }))
+        .filter(({ elemento }) => elemento)
+        .map((enlace) => ({
+          ...enlace,
+          posicion: enlace.elemento.getBoundingClientRect().top,
+        }))
+        .filter(({ posicion }) => posicion <= alturaEncabezado + 12)
+        .sort((a, b) => a.posicion - b.posicion);
+
+      setSeccionActiva(secciones.at(-1)?.label ?? "Inicio");
+    };
+
+    actualizarSeccion();
+    window.addEventListener("scroll", actualizarSeccion, { passive: true });
+    window.addEventListener("resize", actualizarSeccion);
+    return () => {
+      window.removeEventListener("scroll", actualizarSeccion);
+      window.removeEventListener("resize", actualizarSeccion);
+    };
+  }, []);
+
   function seleccionarOpcion(label) {
-    setOpcionActiva(label);
+    setSeccionActiva(label);
     setMenuAbierto(false);
+  }
+
+  function navegarASeccion(event, href, label) {
+    event.preventDefault();
+    seleccionarOpcion(label);
+    window.history.pushState(null, "", href);
+    scrollToSection(href.slice(1));
   }
 
   function irARegistro() {
@@ -33,9 +73,9 @@ function Header() {
       <div className="encabezado__barra">
         <a
           className="encabezado__marca"
-          href="#inicio"
+          href="#lp-portada"
           aria-label="JC Casas Restaurante, inicio"
-          onClick={() => seleccionarOpcion("Inicio")}
+          onClick={(event) => navegarASeccion(event, "#lp-portada", "Inicio")}
         >
           <img className="encabezado__logo" src={logo} alt="" />
           <span className="encabezado__nombre">JC Casas Restaurante</span>
@@ -65,9 +105,9 @@ function Header() {
                 key={href}
                 text="Registrarse"
                 onClick={irARegistro}
-                aria-current={opcionActiva === label ? "page" : undefined}
+                aria-current={seccionActiva === label ? "page" : undefined}
                 className={
-                  opcionActiva === label
+                  seccionActiva === label
                     ? "encabezado__registro--activo"
                     : undefined
                 }
@@ -76,29 +116,19 @@ function Header() {
               <a
                 key={href}
                 className={
-                  opcionActiva === label
+                  seccionActiva === label
                     ? "encabezado__enlace--activo"
                     : undefined
                 }
                 href={href}
-                aria-current={opcionActiva === label ? "page" : undefined}
-                onClick={() => seleccionarOpcion(label)}
+                aria-current={seccionActiva === label ? "page" : undefined}
+                onClick={(event) => navegarASeccion(event, href, label)}
               >
                 {label}
               </a>
             ),
           )}
         </nav>
-      </div>
-      <div className="encabezado__migas" aria-label="Ruta de navegación">
-        <a
-          href={
-            links.find(({ label }) => label === opcionActiva)?.href ?? "#inicio"
-          }
-          aria-current="page"
-        >
-          {opcionActiva}
-        </a>
       </div>
     </header>
   );
