@@ -12,6 +12,10 @@ import Header from "../../components/header/Header";
 import Footer from "../../components/footer/Footer";
 import Button from "../../components/button/Button";
 import { scrollToSection } from "../../utils/scrollToSection";
+import mapa from "../../assets/img/ubicacion.jpg";
+import videoRestaurante from "../../assets/video/restaurante.mp4";
+import almuerzo from "../../assets/img/almuerzo.png";
+import desayunos from "../../assets/img/desayunos.jpg";
 import "./landing.css";
 
 const categorias = [
@@ -64,6 +68,58 @@ const preguntas = [
     "Sí, consulta la cobertura y disponibilidad por teléfono o WhatsApp.",
   ],
 ];
+
+function VideoRestaurante() {
+  const videoRef = useRef(null);
+  const [visible, setVisible] = useState(false);
+  const [cargado, setCargado] = useState(false);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    if (!("IntersectionObserver" in window)) {
+      setVisible(true);
+      setCargado(true);
+      return;
+    }
+
+    const observador = new IntersectionObserver(
+      ([entrada]) => {
+        setVisible(entrada.isIntersecting);
+        if (entrada.isIntersecting) setCargado(true);
+      },
+      { threshold: 0.1 },
+    );
+    observador.observe(video);
+    return () => observador.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    if (visible && cargado) {
+      video.play().catch(() => {});
+    } else {
+      video.pause();
+    }
+  }, [visible, cargado]);
+
+  return (
+    <video
+      ref={videoRef}
+      className="lp-nosotros__imagen"
+      src={cargado ? videoRestaurante : undefined}
+      loop
+      muted
+      playsInline
+      preload="none"
+      aria-hidden="true"
+      tabIndex={-1}
+    />
+  );
+}
 
 function Landing() {
   const landingRef = useRef(null);
@@ -172,14 +228,14 @@ function Landing() {
                 </li>
               </ul>
             </div>
-            <div
-              className="lp-portada__visual"
-              aria-label="Espacio reservado para fotografía de un almuerzo"
-            >
-              {/* Espacio reservado: agregar aquí la fotografía principal del almuerzo. */}
-              <div className="lp-portada__imagen lp-imagen-pendiente">
-                <span>Fotografía del menú</span>
-              </div>
+            <div className="lp-portada__visual">
+              <img
+                className="lp-portada__imagen"
+                src={almuerzo}
+                alt="Almuerzo casero preparado por JC Casas Restaurante"
+                fetchPriority="high"
+                decoding="async"
+              />
               <div className="lp-flotante lp-flotante--estado">
                 <div className="lp-estado">
                   <span className="lp-estado__punto" aria-hidden="true" />
@@ -215,10 +271,7 @@ function Landing() {
         <section id="nosotros" className="lp-seccion">
           <div className="contenedor lp-nosotros">
             <figure className="lp-nosotros__visual">
-              {/* Espacio reservado: agregar aquí una fotografía del restaurante o su cocina. */}
-              <div className="lp-nosotros__imagen lp-imagen-pendiente">
-                <span>Fotografía del restaurante</span>
-              </div>
+              <VideoRestaurante />
               <figcaption className="lp-nosotros__sello">
                 <strong>20+</strong>
                 <span>años de experiencia</span>
@@ -302,10 +355,13 @@ function Landing() {
               })}
             </ol>
             <article className="lp-desayunos">
-              {/* Espacio reservado: agregar aquí una fotografía de los desayunos. */}
-              <div className="lp-desayunos__imagen lp-imagen-pendiente">
-                <span>Fotografía de desayunos</span>
-              </div>
+              <img
+                className="lp-desayunos__imagen"
+                src={desayunos}
+                alt="Desayuno preparado en JC Casas Restaurante"
+                loading="lazy"
+                decoding="async"
+              />
               <div className="lp-desayunos__texto">
                 <p className="lp-seccion__antetitulo">También tenemos</p>
                 <h3 className="lp-desayunos__titulo">
@@ -350,16 +406,22 @@ function Landing() {
                   <h3 className="lp-info__titulo">Ubicación</h3>
                   <p>Cra. 19 # 14B - 28, barrio Prado Vegas, Soacha.</p>
                 </article>
+                <article className="lp-info">
+                  <FaPhone className="lp-info__icono" aria-hidden="true" />
+                  <h3 className="lp-info__titulo">Teléfono</h3>
+                  <p>
+                    <a href="tel:+573144513235">314 451 3235</a>
+                  </p>
+                </article>
               </div>
               <div className="lp-mapa">
-                {/* Espacio reservado: agregar aquí el mapa o una imagen de ubicación. */}
-                <div
-                  className="lp-mapa__iframe lp-imagen-pendiente"
-                  role="img"
-                  aria-label="Espacio reservado para el mapa de ubicación"
-                >
-                  <span>Mapa de ubicación</span>
-                </div>
+                <img
+                  src={mapa}
+                  className="lp-mapa__imagen"
+                  alt="Mapa de ubicación del restaurante JC Casas en Prado Vegas, Soacha"
+                  loading="lazy"
+                  decoding="async"
+                />
                 <div className="lp-mapa__pie">
                   <div>
                     <strong>JC Casas Restaurante</strong>
@@ -367,7 +429,7 @@ function Landing() {
                   </div>
                   <a
                     className="lp-boton lp-boton--primario lp-boton--compacto"
-                    href="https://maps.google.com/?q=Prado+Vegas+Soacha"
+                    href="https://maps.app.goo.gl/uCe6xii1fBUigJFm9"
                     target="_blank"
                     rel="noreferrer"
                   >
@@ -425,7 +487,6 @@ function Landing() {
                 );
               })}
             </div>
-
           </div>
         </section>
       </main>

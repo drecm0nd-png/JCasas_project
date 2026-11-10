@@ -30,13 +30,20 @@ function Footer() {
             Contacto
           </h2>
           <address className="pie-pagina__datos">
-            <span>Teléfono:</span>
-            <a href="tel:+573144513235">3144513235</a>
-            <span>Correo electrónico:</span>
-            <a href="mailto:jcCasasRestaurant@gmail.com">
-              jcCasasRestaurant@gmail.com
-            </a>
-            <span>Dirección: Crra 19 # 14B - 28 Barrio Prado Vegas</span>
+            <div className="pie-pagina__dato">
+              <span>Teléfono</span>
+              <a href="tel:+573144513235">314 451 3235</a>
+            </div>
+            <div className="pie-pagina__dato">
+              <span>Correo electrónico</span>
+              <a href="mailto:jcCasasRestaurant@gmail.com">
+                jcCasasRestaurant@gmail.com
+              </a>
+            </div>
+            <div className="pie-pagina__dato">
+              <span>Dirección</span>
+              <p>Crra 19 # 14B - 28 Barrio Prado Vegas</p>
+            </div>
           </address>
         </section>
       </div>
