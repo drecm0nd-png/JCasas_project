@@ -1,0 +1,21 @@
+.ruta-transicion {
+  animation: entrada-ruta 220ms ease-out both;
+}
+
+@keyframes entrada-ruta {
+  from {
+    opacity: 0;
+    transform: translateY(0.5rem);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ruta-transicion {
+    animation: none;
+  }
+}
