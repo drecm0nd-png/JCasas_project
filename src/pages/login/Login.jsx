@@ -1,10 +1,12 @@
 import { useState } from "react";
-import { FaEye, FaEyeSlash } from "react-icons/fa6";
+import { Link, useNavigate } from "react-router-dom";
+import { FaArrowLeft, FaEye, FaEyeSlash } from "react-icons/fa6";
 import Boton from "../../components/button/Button";
 import logo from "../../assets/img/logo.png";
 import "./login.css";
 
 function Login() {
+  const navigate = useNavigate();
   const [mostrarContrasena, setMostrarContrasena] = useState(false);
 
   function handleSubmit(event) {
@@ -65,6 +67,10 @@ function Login() {
             <a className="login__ayuda" href="#crear-cuenta">
               ¿No tienes una cuenta?
             </a>
+            <Link className="login__ayuda login__volver--movil" to="/">
+              <FaArrowLeft aria-hidden="true" />
+              <span>Volver al inicio</span>
+            </Link>
           </form>
         </div>
       </section>
@@ -76,6 +82,17 @@ function Login() {
           <p>
             Inicia sesión o crea tu cuenta para disfrutar tu próximo pedido.
           </p>
+          <Boton
+            className="login__volver login__volver--escritorio"
+            text={
+              <>
+                <FaArrowLeft aria-hidden="true" />
+                <span>Volver al inicio</span>
+              </>
+            }
+            type="button"
+            onClick={() => navigate("/")}
+          />
         </header>
       </aside>
     </main>
