@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import logo from "../../assets/img/logo.png";
 import Boton from "../button/Button";
 import { scrollToSection } from "../../utils/scrollToSection";
@@ -10,10 +11,11 @@ const links = [
   { label: "Menú", href: "#menu" },
   { label: "Horarios y ubicación", href: "#cobertura" },
   { label: "Preguntas y contacto", href: "#preguntas-contacto" },
-  { label: "Registrarse", href: "#registrarse" },
+  { label: "Registrarse", href: "/login" },
 ];
 
 function Header() {
+  const navigate = useNavigate();
   const [menuAbierto, setMenuAbierto] = useState(false);
   const [seccionActiva, setSeccionActiva] = useState(() => {
     const opcion = links.find(({ href }) => href === window.location.hash);
@@ -63,9 +65,10 @@ function Header() {
     scrollToSection(href.slice(1));
   }
 
-  function irARegistro() {
+  function irARegistro(href) {
     seleccionarOpcion("Registrarse");
-    window.location.hash = "registrarse";
+    setMenuAbierto(false);
+    navigate(href);
   }
 
   return (
@@ -104,7 +107,7 @@ function Header() {
               <Boton
                 key={href}
                 text="Registrarse"
-                onClick={irARegistro}
+                onClick={() => irARegistro(href)}
                 aria-current={seccionActiva === label ? "page" : undefined}
                 className={
                   seccionActiva === label
