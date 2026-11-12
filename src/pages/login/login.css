@@ -1,0 +1,244 @@
+@import "../../styles/variables.css";
+
+.login {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  min-height: 100vh;
+  background: var(--color-fondo);
+}
+
+.login__panel {
+  display: grid;
+  place-items: center;
+  min-width: 0;
+  padding: clamp(1.25rem, 4vw, 3rem);
+}
+
+.login__contenido {
+  width: min(100%, 22rem);
+}
+
+.login__encabezado {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: min(78%, 32rem);
+  color: var(--color-fondo);
+  text-align: left;
+  transform: translate(-50%, -50%);
+  text-shadow: 0 2px 18px rgb(0 0 0 / 45%);
+}
+
+.login__encabezado h1 {
+  margin-bottom: 0.5rem;
+  color: inherit;
+  font-size: clamp(1.8rem, 1.35rem + 1.6vw, 2.6rem);
+}
+
+.login__encabezado p {
+  margin-bottom: 0;
+  color: inherit;
+}
+
+.login__encabezado .login__sobrelinea {
+  margin-bottom: 0.4rem;
+  color: var(--color-superficie);
+  font-size: var(--tamano-texto-pequeno);
+  font-weight: var(--peso-subtitulo);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.login__formulario {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: clamp(1.5rem, 4vw, 2.5rem);
+  border-radius: var(--radio-borde);
+  background: var(--color-superficie);
+  box-shadow: var(--sombra-suave);
+}
+
+.login__logo {
+  display: block;
+  width: clamp(5.5rem, 30%, 7rem);
+  aspect-ratio: 1;
+  object-fit: contain;
+  align-self: center;
+  margin-bottom: 0.75rem;
+}
+
+.login__intro {
+  margin: 0 0 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid
+    color-mix(in srgb, var(--color-borde) 35%, transparent);
+  color: var(--color-texto);
+  font-size: var(--tamano-texto-pequeno);
+  text-align: center;
+}
+
+.login__campo {
+  display: grid;
+  gap: 0.35rem;
+  margin-bottom: 0.75rem;
+  color: var(--color-texto-secundario);
+  font-size: var(--tamano-texto-pequeno);
+}
+
+.login__campo input {
+  width: 100%;
+  min-height: 2.5rem;
+  padding: 0.55rem 0.7rem;
+  border: 1px solid var(--color-borde);
+  border-radius: var(--radio-borde);
+  background: var(--color-fondo);
+  color: var(--color-texto);
+  font: inherit;
+}
+
+.login__entrada-contrasena {
+  position: relative;
+  display: block;
+}
+
+.login__entrada-contrasena input {
+  padding-right: 2.8rem;
+}
+
+.login__alternar-contrasena {
+  position: absolute;
+  top: 50%;
+  right: 0.25rem;
+  display: grid;
+  place-items: center;
+  width: 2.25rem;
+  min-height: 2.25rem;
+  padding: 0;
+  border-radius: var(--radio-borde);
+  background: transparent;
+  color: var(--color-texto-secundario);
+  cursor: pointer;
+  transform: translateY(-50%);
+}
+
+.login__alternar-contrasena:focus-visible {
+  outline: 2px solid var(--color-acento);
+  outline-offset: 1px;
+}
+
+.login__campo input:focus-visible {
+  outline: 2px solid var(--color-acento);
+  outline-offset: 2px;
+}
+
+.login__enviar {
+  width: 100%;
+  margin: 0.15rem 0 0.65rem;
+}
+
+.login__ayuda {
+  width: fit-content;
+  margin-top: 0.35rem;
+  color: var(--color-texto-secundario);
+  font-size: var(--tamano-texto-pequeno);
+  text-underline-offset: 0.15em;
+}
+
+.login__ayuda:hover {
+  color: var(--color-boton-hover);
+}
+
+.login__imagen {
+  position: relative;
+  min-height: 100vh;
+  background-color: var(--color-texto);
+  /* Define --login-imagen: url('/ruta/a/tu-imagen.jpg') para agregar la foto. */
+  background-image: var(--login-imagen, none);
+  background-position: center;
+  background-size: cover;
+}
+
+@media (max-width: 800px) {
+  .login {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+    min-height: 100svh;
+  }
+
+  .login__imagen {
+    display: none;
+  }
+
+  .login__encabezado {
+    display: none;
+  }
+
+  .login__panel {
+    grid-row: 1;
+    padding: clamp(1rem, 5vh, 2.5rem) 1rem;
+  }
+
+  .login__contenido {
+    width: min(100%, 34rem);
+  }
+
+  .login__logo {
+    width: 5.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .login__formulario {
+    padding: clamp(1.25rem, 6vw, 2rem);
+    margin-top: 0;
+  }
+}
+
+@media (max-width: 380px) {
+  .login__formulario {
+    padding: 1.25rem;
+  }
+}
+
+@media (max-width: 800px) and (max-height: 760px) {
+  .login__panel {
+    padding-block: 0.5rem;
+  }
+
+  .login__formulario {
+    padding: 1rem;
+  }
+
+  .login__logo {
+    width: 4rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .login__intro {
+    margin-bottom: 0.5rem;
+    padding-bottom: 0.4rem;
+  }
+
+  .login__campo {
+    gap: 0.2rem;
+    margin-bottom: 0.45rem;
+  }
+
+  .login__campo input {
+    min-height: 2.25rem;
+    padding-block: 0.4rem;
+  }
+
+  .login__alternar-contrasena {
+    min-height: 2rem;
+  }
+
+  .login__enviar {
+    min-height: 2.5rem;
+    margin-bottom: 0.35rem;
+  }
+
+  .login__ayuda {
+    margin-top: 0.15rem;
+  }
+}
